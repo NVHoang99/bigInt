@@ -27,8 +27,10 @@ public:
 	QInt operator-(const QInt&);
 	QInt operator*(const QInt&);
 	QInt operator/(const QInt&);
-	QInt operator>>(const int&);
 	QInt operator<<(const int&);
+	QInt operator>>(const int&);
+	QInt rotateLeft();
+	QInt rotateRight();
 	string toBinaryString();
 	static string toBinaryString(const QInt&);
 	string toDecimalString();

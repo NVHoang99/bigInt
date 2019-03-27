@@ -211,6 +211,76 @@ QInt& QInt::operator=(const QInt& a)
 	}
 	return *this;
 }
+
+QInt QInt::operator<<(const int &n)
+{
+	QInt res;
+	int count = 0;
+
+	for (int i = 0; i < 128; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i];
+	}
+	
+	do
+	{
+		for (int i = 0; i < 127; i++)
+		{
+			res.arrayBits[i] = res.arrayBits[i+1];
+		}
+		res.arrayBits[127] = 0;
+		count++;
+	} while (count < n);
+	return res;
+}
+
+QInt QInt::operator>>(const int &n)
+{
+	QInt res;
+	int count = 0;
+
+	for (int i = 0; i < 128; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i];
+	}
+
+	do
+	{
+		for (int i = 127; i > 0; i--)
+		{
+			res.arrayBits[i] = res.arrayBits[i - 1];
+		}
+		res.arrayBits[0] = 0;
+		count++;
+	} while (count < n);
+	return res;
+}
+
+QInt QInt::rotateLeft()
+{
+	QInt res;
+	char ch = this->arrayBits[0];
+
+	for (int i = 0; i < 127; i++)
+	{
+		res.arrayBits[i] = this->arrayBits[i + 1];
+	}
+	res.arrayBits[127] = ch;
+	return res;
+}
+
+QInt QInt::rotateRight()
+{
+	QInt res;
+	char ch = this->arrayBits[127];
+	for (int i = 127; i > 0; i--)
+	{
+		res.arrayBits[i] = this->arrayBits[i - 1];
+	}
+	res.arrayBits[0] = ch;
+	return res;
+}
+
 string QInt::toBinaryString()
 {
 	stringstream res;
